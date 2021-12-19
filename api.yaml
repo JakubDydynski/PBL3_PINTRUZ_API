@@ -2,22 +2,22 @@ swagger: "2.0"
 info:
   description: "This is a simple API for controlling RGB LEDs."
   version: "1.0.0"
-  title: "LED Control API"
+  title: "Camera Server API"
 tags:
-- name: "led"
-  description: "Accessing the LED"
+- name: "Server"
+  description: "Server for accsesing camera photos"
 paths:
-  /led/red:
+  /img:
     post:
       tags:
       - "led"
-      summary: "Updates brightness level of red LED"
-      description: "Updates brightness level of red LED. After update it returns the new level."
+      summary: "Posts a photo in binary format"
+      description: "Posts a photo from camera in binary format and saves it in database. After post it send a status message."
       operationId: "changeColor"
       consumes:
-      - "application/json"
+      - "multipart/form-data"
       produces:
-      - "application/json"
+      - "multipart/form-data"
       parameters:
       - in: "body"
         name: "body"
@@ -26,27 +26,14 @@ paths:
           $ref: "#/definitions/Level"
       responses:
         "200":
-          description: "Operation Successfull. New level returned."
+          description: "message: image received. size={}x{}.format(img.shape[1], img.shape[0]."
           schema:
             $ref: "#/definitions/Level"
         "400":
           description: "Invalid data."
         "500":
           description: "Unexpected error. Please contact the administrator."
-    get:
-      tags:
-      - "led"
-      summary: "Return level of red LED"
-      description: "Returns current level od red LED."
-      operationId: "getColor"
-      responses:
-        "200":
-          description: "Operation Successfull"
-          schema:
-            $ref: "#/definitions/Level"
-        "500":
-          description: "Unexpected error. Please contact the administrator."
-  /led/green:
+  /img/<img_ts>:
     post:
       tags:
       - "led"
@@ -85,46 +72,6 @@ paths:
             $ref: "#/definitions/Level"
         "500":
           description: "Unexpected error. Please contact the administrator."
-  /led/blue:
-    post:
-      tags:
-      - "led"
-      summary: "Updates brightness level of blue LED"
-      description: "Updates brightness level of blue LED. After update it returns the new level."
-      operationId: "changeBlue"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/Level"
-      responses:
-        "200":
-          description: "Operation Successfull. New level returned."
-          schema:
-            $ref: "#/definitions/Level"
-        "400":
-          description: "Invalid data."
-        "500":
-          description: "Unexpected error. Please contact the administrator."
-    get:
-      tags:
-      - "led"
-      summary: "Return level of blue LED"
-      description: "Returns current level od blue LED."
-      operationId: "getBlue"
-      responses:
-        "200":
-          description: "Operation Successfull"
-          schema:
-            $ref: "#/definitions/Level"
-        "500":
-          description: "Unexpected error. Please contact the administrator."
-
 definitions:
   Level:
     type: "object"
