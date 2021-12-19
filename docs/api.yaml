@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   description: "API for managing anti-burglar camera."
   version: "1.0.0"
-  title: "Camera Server API"
+  title: "Camera Server API."
 tags:
 - name: "Server"
   description: "Server for accsesing camera photos"
