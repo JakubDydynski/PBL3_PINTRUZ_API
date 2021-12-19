@@ -72,6 +72,32 @@ paths:
             $ref: "#/definitions/Level"
         "500":
           description: "Unexpected error. Please contact the administrator."
+  /img/<img_id>:
+    post:
+      tags:
+      - "led"
+      summary: "Uploads image"
+      description: "Uploads image caught by night camera"
+      operationId: "changeGreen"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Level"
+      responses:
+        "200":
+          description: "Image uploaded!"
+          schema:
+            $ref: "#/definitions/Level"
+        "400":
+          description: "Image doesn't exist!"
+        "500":
+          description: "Unexpected error. Please contact the administrator."
 definitions:
   Level:
     type: "object"
