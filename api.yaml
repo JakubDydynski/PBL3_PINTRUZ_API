@@ -60,10 +60,3 @@ paths:
           description: "Image {} doesn't exist.format(img_id)"
         "500":
           description: "Unexpected error."
-definitions:
-  Data:
-    type: "object"
-    properties:
-      data:
-        type: "integer"
-        description: "Brightness level of a color (0-100)"
