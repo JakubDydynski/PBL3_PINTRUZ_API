@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: "This is a simple API for controlling RGB LEDs."
+  description: "API for managing anti-burglar camera."
   version: "1.0.0"
   title: "Camera Server API"
 tags:
@@ -10,10 +10,10 @@ paths:
   /img:
     post:
       tags:
-      - "led"
+      - "Post"
       summary: "Posts a photo in binary format"
       description: "Posts a photo from camera in binary format and saves it in database. After post it send a status message."
-      operationId: "changeColor"
+      operationId: "Photo"
       consumes:
       - "multipart/form-data"
       produces:
@@ -32,50 +32,24 @@ paths:
         "400":
           description: "Invalid data."
         "500":
-          description: "Unexpected error. Please contact the administrator."
-  /img/<img_ts>:
-    post:
-      tags:
-      - "led"
-      summary: "Updates brightness level of green LED"
-      description: "Updates brightness level of green LED. After update it returns the new level."
-      operationId: "changeGreen"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/Level"
-      responses:
-        "200":
-          description: "Operation Successfull. New level returned."
-          schema:
-            $ref: "#/definitions/Level"
-        "400":
-          description: "Invalid data."
-        "500":
-          description: "Unexpected error. Please contact the administrator."
+          description: "Unexpected error."
+  /img/<img_id>:
     get:
-      tags:
-      - "led"
-      summary: "Return level of green LED"
-      description: "Returns current level of green LED."
-      operationId: "getGreen"
+      summary: "Return level of red LED"
+      description: "Returns current level od red LED."
+      operationId: "getPicture"
       responses:
         "200":
           description: "Operation Successfull"
+        "404":
+          description: "Image {} doesn't exist.format(img_id)"
           schema:
             $ref: "#/definitions/Level"
         "500":
-          description: "Unexpected error. Please contact the administrator."
-  /img/<img_id>:
-    post:
+          description: "Unexpected error."
+    delete:
       tags:
-      - "led"
+      - "delete"
       summary: "Uploads image"
       description: "Uploads image caught by night camera"
       operationId: "changeGreen"
@@ -97,7 +71,7 @@ paths:
         "400":
           description: "Image doesn't exist!"
         "500":
-          description: "Unexpected error. Please contact the administrator."
+          description: "Unexpected error."
 definitions:
   Level:
     type: "object"
