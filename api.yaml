@@ -11,7 +11,7 @@ paths:
     post:
       tags:
       - "camera"
-      summary: "Posts a photo in binary format"
+      summary: "Posts a photo in binary format."
       description: "Posts a photo from camera in binary format and saves it in database. After post it send a status message."
       operationId: "postPicture"
       consumes:
@@ -21,7 +21,7 @@ paths:
       parameters:
       - in: formData
         name: upfile
-        type: .jpg
+        type: file
         required: true
         description: The picture to upload.
       responses:
@@ -50,7 +50,7 @@ paths:
     delete:
       tags:
       - "camera"
-      summary: "Delete picture"
+      summary: "Delete picture."
       description: "Deletes picture from a database by timestamp name."
       operationId: "deleteCamera"
       responses:
