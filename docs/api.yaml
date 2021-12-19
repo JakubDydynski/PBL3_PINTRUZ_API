@@ -5,7 +5,7 @@ info:
   title: "Camera Server API."
 tags:
 - name: "Server"
-  description: "Server for accsesing camera photos"
+  description: "Server for accsesing camera photos."
 paths:
   /img:
     post:
