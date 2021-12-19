@@ -10,72 +10,60 @@ paths:
   /img:
     post:
       tags:
-      - "Post"
+      - "camera"
       summary: "Posts a photo in binary format"
       description: "Posts a photo from camera in binary format and saves it in database. After post it send a status message."
-      operationId: "Photo"
+      operationId: "postPicture"
       consumes:
       - "multipart/form-data"
       produces:
       - "multipart/form-data"
       parameters:
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/Level"
+      - in: formData
+        name: upfile
+        type: .jpg
+        required: true
+        description: The picture to upload.
       responses:
-        "200":
+        "201":
           description: "message: image received. size={}x{}.format(img.shape[1], img.shape[0]."
-          schema:
-            $ref: "#/definitions/Level"
         "400":
           description: "Invalid data."
         "500":
           description: "Unexpected error."
   /img/<img_id>:
     get:
-      summary: "Return level of red LED"
-      description: "Returns current level od red LED."
+      tags:
+      - "camera"
+      summary: "Return picture from database."
+      description: "Returns a picture from a database by timestamp name."
       operationId: "getPicture"
+      produces:
+      - "multipart/form-data"
       responses:
         "200":
           description: "Operation Successfull"
         "404":
           description: "Image {} doesn't exist.format(img_id)"
-          schema:
-            $ref: "#/definitions/Level"
         "500":
           description: "Unexpected error."
     delete:
       tags:
-      - "delete"
-      summary: "Uploads image"
-      description: "Uploads image caught by night camera"
-      operationId: "changeGreen"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/Level"
+      - "camera"
+      summary: "Delete picture"
+      description: "Deletes picture from a database by timestamp name."
+      operationId: "deleteCamera"
       responses:
-        "200":
-          description: "Image uploaded!"
-          schema:
-            $ref: "#/definitions/Level"
-        "400":
-          description: "Image doesn't exist!"
+        "204":
+          description: "Image deleted."
+        "404":
+          description: "Image {} doesn't exist.format(img_id)"
         "500":
           description: "Unexpected error."
 definitions:
-  Level:
+  Data:
     type: "object"
     properties:
-      level:
+      data:
         type: "integer"
         description: "Brightness level of a color (0-100)"
