@@ -31,7 +31,7 @@ paths:
           description: "Invalid data. You may entered wrong room number"
         "500":
           description: "Unexpected error."
-  /<room_number>/<img_id>:
+  /<room_number>/<img_ts>:
     get:
       tags:
       - "camera"
