@@ -7,7 +7,7 @@ tags:
 - name: "Server"
   description: "Server for accsesing camera photos."
 paths:
-  /img:
+  /<room_number>:
     post:
       tags:
       - "camera"
@@ -28,15 +28,15 @@ paths:
         "201":
           description: "message: image received. size={}x{}.format(img.shape[1], img.shape[0]."
         "400":
-          description: "Invalid data."
+          description: "Invalid data. You may entered wrong room number"
         "500":
           description: "Unexpected error."
-  /img/<img_id>:
+  /<room_number>/<img_id>:
     get:
       tags:
       - "camera"
       summary: "Return picture from database."
-      description: "Returns a picture from a database by timestamp name."
+      description: "Returns a picture from a database filtering by timestamp and room number."
       operationId: "getPicture"
       produces:
       - "multipart/form-data"
@@ -44,19 +44,19 @@ paths:
         "200":
           description: "Operation Successfull"
         "404":
-          description: "Image {} doesn't exist.format(img_id)"
+          description: "Image {} or room {} doesn't exist.format(img_id,room_number)"
         "500":
           description: "Unexpected error."
     delete:
       tags:
       - "camera"
       summary: "Delete picture."
-      description: "Deletes picture from a database by timestamp name."
+      description: "Deletes picture from a database  filtering by timestamp and room number."
       operationId: "deleteCamera"
       responses:
         "204":
           description: "Image deleted."
         "404":
-          description: "Image {} doesn't exist.format(img_id)"
+          description: "Image {} or room {} doesn't exist.format(img_id,room_number)"
         "500":
           description: "Unexpected error."
